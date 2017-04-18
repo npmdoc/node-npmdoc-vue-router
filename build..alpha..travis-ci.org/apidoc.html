@@ -51,7 +51,7 @@
 
         href="https://github.com/vuejs/vue-router#readme"
 
-    >vue-router (v2.3.1)</a>
+    >vue-router (v2.4.0)</a>
 </h1>
 <h4>Official router for Vue.js 2</h4>
 <div class="apidocSectionDiv"><a
@@ -60,6 +60,15 @@
 ><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.vue-router">module vue-router</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.vue-router.vue-router">
+            function <span class="apidocSignatureSpan"></span>vue-router
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
 
         <li>
 
@@ -85,6 +94,54 @@
 
 
     <h2>
+        <a href="#apidoc.element.vue-router.vue-router" id="apidoc.element.vue-router.vue-router">
+        function <span class="apidocSignatureSpan"></span>vue-router
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function VueRouter(options) {
+  if ( options === void 0 ) options = {};
+
+  this.app = null;
+  this.apps = [];
+  this.options = options;
+  this.beforeHooks = [];
+  this.afterHooks = [];
+  this.matcher = createMatcher(options.routes || [], this);
+
+  var mode = options.mode || &#x27;hash&#x27;;
+  this.fallback = mode === &#x27;history&#x27; &#x26;&#x26; !supportsPushState;
+  if (this.fallback) {
+    mode = &#x27;hash&#x27;;
+  }
+  if (!inBrowser) {
+    mode = &#x27;abstract&#x27;;
+  }
+  this.mode = mode;
+
+  switch (mode) {
+    case &#x27;history&#x27;:
+      this.history = new HTML5History(this, options.base);
+      break
+    case &#x27;hash&#x27;:
+      this.history = new HashHistory(this, options.base, this.fallback);
+      break
+    case &#x27;abstract&#x27;:
+      this.history = new AbstractHistory(this, options.base);
+      break
+    default:
+      if (process.env.NODE_ENV !== &#x27;production&#x27;) {
+        assert(false, (&#x22;invalid mode: &#x22; + mode));
+      }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
         <a href="#apidoc.element.vue-router.install" id="apidoc.element.vue-router.install">
         function <span class="apidocSignatureSpan">vue-router.</span>install
         <span class="apidocSignatureSpan">(Vue)</span>
@@ -105,13 +162,26 @@
     get: function get () { return this.$root._route }
   });
 
+  var isDef = function (v) { return v !== undefined; };
+
+  var registerInstance = function (vm, callVal) {
+    var i = vm.$options._parentVnode;
+    if (isDef(i) &#x26;&#x26; isDef(i = i.data) &#x26;&#x26; isDef(i = i.registerRouteInstance)) {
+      i(vm, callVal);
+    }
+  };
+
   Vue.mixin({
     beforeCreate: function beforeCreate () {
-      if (this.$options.router) {
+      if (isDef(this.$options.router)) {
         this._router = this.$options.router;
         this._router.init(this);
         Vue.util.defineReactive(this, &#x27;_route&#x27;, this._router.history.current);
       }
+      registerInstance(this, this);
+    },
+    destroyed: function destroyed () {
+      registerInstance(this);
     }
   });
 
