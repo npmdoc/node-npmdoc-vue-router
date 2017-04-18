@@ -1,9 +1,14 @@
-# api documentation for  [vue-router (v2.3.1)](https://github.com/vuejs/vue-router#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-vue-router.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-vue-router) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-vue-router.svg)](https://travis-ci.org/npmdoc/node-npmdoc-vue-router)
+# npmdoc-vue-router
+
+#### api documentation for  [vue-router (v2.4.0)](https://github.com/vuejs/vue-router#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-vue-router.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-vue-router) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-vue-router.svg)](https://travis-ci.org/npmdoc/node-npmdoc-vue-router)
+
 #### Official router for Vue.js 2
 
-[![NPM](https://nodei.co/npm/vue-router.png?downloads=true)](https://www.npmjs.com/package/vue-router)
+[![NPM](https://nodei.co/npm/vue-router.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue-router)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-vue-router/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-vue-router_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-vue-router/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-vue-router/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-vue-router/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-vue-router/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-vue-router/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-vue-router/build/screenCapture.npmPackageListing.svg)
 
@@ -69,15 +74,15 @@
     },
     "directories": {},
     "dist": {
-        "shasum": "3135448cf57d4ca576906061a5a9d25fae0214d7",
-        "tarball": "https://registry.npmjs.org/vue-router/-/vue-router-2.3.1.tgz"
+        "shasum": "56a635e1434a1966ac095f2a485bebdcfc36cec5",
+        "tarball": "https://registry.npmjs.org/vue-router/-/vue-router-2.4.0.tgz"
     },
     "files": [
         "src",
         "dist/*.js",
         "types/*.d.ts"
     ],
-    "gitHead": "a1de424211446006e7abd6d478b00d41ae609f81",
+    "gitHead": "e393812e6bc9461e75c3f78d0101fd39af772638",
     "homepage": "https://github.com/vuejs/vue-router#readme",
     "keywords": [
         "vue",
@@ -88,14 +93,12 @@
     "main": "dist/vue-router.common.js",
     "maintainers": [
         {
-            "name": "yyx990803",
-            "email": "yyx990803@gmail.com"
+            "name": "yyx990803"
         }
     ],
     "module": "dist/vue-router.esm.js",
     "name": "vue-router",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/vuejs/vue-router.git"
@@ -115,60 +118,8 @@
     },
     "typings": "types/index.d.ts",
     "unpkg": "dist/vue-router.js",
-    "version": "2.3.1"
+    "version": "2.4.0"
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module vue-router](#apidoc.module.vue-router)
-1.  [function <span class="apidocSignatureSpan">vue-router.</span>install (Vue)](#apidoc.element.vue-router.install)
-1.  string <span class="apidocSignatureSpan">vue-router.</span>version
-
-
-
-# <a name="apidoc.module.vue-router"></a>[module vue-router](#apidoc.module.vue-router)
-
-#### <a name="apidoc.element.vue-router.install"></a>[function <span class="apidocSignatureSpan">vue-router.</span>install (Vue)](#apidoc.element.vue-router.install)
-- description and source-code
-```javascript
-function install(Vue) {
-  if (install.installed) { return }
-  install.installed = true;
-
-  _Vue = Vue;
-
-  Object.defineProperty(Vue.prototype, '$router', {
-    get: function get () { return this.$root._router }
-  });
-
-  Object.defineProperty(Vue.prototype, '$route', {
-    get: function get () { return this.$root._route }
-  });
-
-  Vue.mixin({
-    beforeCreate: function beforeCreate () {
-      if (this.$options.router) {
-        this._router = this.$options.router;
-        this._router.init(this);
-        Vue.util.defineReactive(this, '_route', this._router.history.current);
-      }
-    }
-  });
-
-  Vue.component('router-view', View);
-  Vue.component('router-link', Link);
-
-  var strats = Vue.config.optionMergeStrategies;
-  // use the same hook merging strategy for route hooks
-  strats.beforeRouteEnter = strats.beforeRouteLeave = strats.created;
-}
-```
-- example usage
-```shell
-n/a
 ```
 
 
